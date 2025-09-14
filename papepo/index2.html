@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adrian'S Website</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header dan Navigasi */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Bagian Konten */
+        section {
+            padding: 4rem 0;
+            min-height: 80vh;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Gaya untuk bagian Home */
+        #home {
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+        }
+        
+        #home h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        #home p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Gaya untuk bagian Biodata */
+        #biodata {
+            background-color: white;
+        }
+        
+        .biodata-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .profile-img {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .profile-img img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .profile-info h2 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .info-item {
+            margin-bottom: 1rem;
+        }
+        
+        .info-item strong {
+            display: inline-block;
+            width: 120px;
+            color: #2c3e50;
+        }
+        
+        /* Gaya untuk bagian Hobby */
+        #hobby {
+            background-color: white;
+        }
+        
+        .hobby-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .hobby-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .hobby-item {
+            flex: 1;
+            min-width: 300px;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hobby-item h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .hobby-item p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .hobby-item ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Gaya untuk bagian Gallery */
+        #gallery {
+            background-color: white;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.8rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        /* Modal untuk gambar yang diperbesar */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 80%;
+            margin-top: 5%;
+        }
+        
+        .modal-caption {
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            #home h1 {
+                font-size: 2.5rem;
+            }
+            
+            .biodata-container {
+                flex-direction: column;
+            }
+            
+            .hobby-container {
+                flex-direction: column;
+            }
+            
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Adrian`s website</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#" onclick="showSection('biodata')">Biodata</a></li>
+                    <li><a href="#" onclick="showSection('hobby')">Hobby</a></li>
+                    <li><a href="#" onclick="showSection('gallery')">Gallery</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home">
+            <div class="container">
+                <h1>Welcome to My Website</h1>
+                <p>This is the main page of my personal website. Please click the Biodata menu to learn more about me.</p>
+                <button onclick="showSection('biodata')" style="padding: 10px 20px; background: white; color: #3498db; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px;">
+                    See My Biodata
+                </button>
+            </div>
+        </section>
+
+        <section id="biodata" class="hidden">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Self Biodata</h2>
+                <div class="biodata-container">
+                    <div class="profile-img">
+                        <!-- Ganti dengan URL gambar profil Anda -->
+                        <img src="pul.jpg" alt="Foto Profil">
+                    </div>
+                    <div class="profile-info">
+                        <!-- Isi biodata Anda di bawah ini -->
+                        <div class="info-item"><strong>Name</strong> :         Adrian Nazhory Ramadhan</div>
+                        <div class="info-item"><strong>Date of Birth</strong> :        15 September 2008</div>
+                        <div class="info-item"><strong>Educational</strong> :       SMA</div>
+                        <div class="info-item"><strong>School</strong> :      SMA Negeri 1 Bekasi</div>
+                        <div class="info-item"><strong>Class</strong> :     XII A2 2</div>
+                        <div class="info-item"><strong>Email</strong> :        nazhory.ramadhan@gmail.com</div>
+                        <div class="info-item"><strong>Phone Number</strong> :      089524487156</div>
+                        <div class="info-item"><strong>Home Adress</strong> :       BJI. Mekarsari</div>
+                        <div class="info-item"><strong>Hobby</strong> :     Running dan Swimming</div>
+                        <div class="info-item"><strong>Dream</strong> :     Membuat usaha sendiri dan membanggakan orang tua</div>
+                    </div>
+                </div>
+                <!-- Bagian Foto + Deskripsi -->
+                <div style="margin-top: 3rem;">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">Personalities</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill,minmax(250px,1fr)); gap: 1.5rem;">
+                        
+                        <div style="text-align: center; background: #f9f9f9; border-radius: 8px; padding: 1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <img src="Screenshot 2025-09-14 201339.png" alt="Running" style="width:100%; border-radius: 8px;">
+                            <p style="margin-top: 0.8rem;"></p>
+                        </div>
+                        
+                        <div style="text-align: center; background: #f9f9f9; border-radius: 8px; padding: 1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <img src="Screenshot 2025-09-14 201406.png" alt="Swimming" style="width:100%; border-radius: 8px;">
+                            <p style="margin-top: 0.8rem;"></p>
+                        </div>
+                        
+                        <div style="text-align: center; background: #f9f9f9; border-radius: 8px; padding: 1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <img src="Screenshot 2025-09-14 201433.png" alt="School" style="width:100%; border-radius: 8px;">
+                            <p style="margin-top: 0.8rem;"></p>
+                        </div>
+                        
+                        <div style="text-align: center; background: #f9f9f9; border-radius: 8px; padding: 1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <img src="Screenshot 2025-09-14 201443.png" alt="Friends" style="width:100%; border-radius: 8px;">
+                            <p style="margin-top: 0.8rem;"></p>
+                        </div>
+                        
+                        <div style="text-align: center; background: #f9f9f9; border-radius: 8px; padding: 1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <img src="Screenshot 2025-09-14 201456.png" alt="Nature" style="width:100%; border-radius: 8px;">
+                            <p style="margin-top: 0.8rem;"></p>
+                        </div>
+                        
+                        <div style="text-align: center; background: #f9f9f9; border-radius: 8px; padding: 1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <img src="Screenshot 2025-09-14 201520.png" alt="Forest" style="width:100%; border-radius: 8px;">
+                            <p style="margin-top: 0.8rem;"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Bagian Foto + Deskripsi -->
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="showSection('home')" style="padding: 10px 20px; background: #2c3e50; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                        Return to Home
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="hobby" class="hidden">
+            <div class="container">
+                <div class="hobby-header">
+                    <h2>My Hobbies</h2>
+                    <p>Activity that i like and provide many benefits</p>
+                </div>
+                
+                <div class="hobby-container">
+                    <div class="hobby-item">
+                        <h3>Running</h3>
+                        <p>Lari adalah salah satu hobi yang sangat membuat saya menjadi lebih fit. Seorang adrian biasanya berlari pagi hari dan malam setidaknya 3 kali seminggu. Lari tidak hanya menyehatkan tubuh tetapi juga menyegarkan pikiran.</p>
+                        <p>Beberapa manfaat yang saya rasakan dari berlari:</p>
+                        <ul>
+                            <li>Meningkatkan stamina dan kebugaran tubuh</li>
+                            <li>Membantu mengurangi stres setelah kegiatan belajar</li>
+                            <li>Memberikan waktu untuk merenung dan berpikir jernih</li>
+                            <li>Mempertahankan berat badan ideal</li>
+                            <li>Membuat wajah lebih cerah dan bersih</li>
+                        </ul>
+                        <p>Saya biasanya berlari di sekitar Bcbd atau di stadion jika ada jadwal lari sekolah. Target saya berikutnya adalah  lari 5 kilo dengan pace stabil di 5.</p>
+                    </div>
+                    
+                    <div class="hobby-item">
+                        <h3>Swimming</h3>
+                        <p>Berenang adalah hobi saya yang lain. Saya merasa berenang adalah olahraga yang menyenangkan dan menyegarkan, terutama di cuaca yang panas.</p>
+                        <p>Manfaat berenang yang saya alami:</p>
+                        <ul>
+                            <li>Melatih semua kelompok otot tubuh</li>
+                            <li>Meningkatkan kapasitas paru-paru</li>
+                            <li>Merupakan olahraga low-impact yang aman untuk persendian</li>
+                            <li>Membantu menjaga postur tubuh yang baik</li>
+                        </ul>
+                        <p>Saya biasanya berenang di akhir pekan sendirian. Gaya renang favorit saya adalah gaya bebas dan gaya punggung. Saat ini saya sedang berlatih untuk meningkatkan teknik optimal dan kecepatan berenang saya.</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="showSection('home')" style="padding: 10px 20px; background: #2c3e50; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                        Return to Home
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="hidden">
+            <div class="container">
+                <div class="gallery-header">
+                    <h2>My Gallery</h2>
+                    <p>Photo collection and precious moment in my life</p>
+                </div>
+                
+                <div class="gallery-container">
+                    <!-- Item Gallery 1 -->
+                    <div class="gallery-item" onclick="openModal('modal1')">
+                        <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Running Activity">
+                        <div class="gallery-caption">Lari Pagi di Stadion</div>
+                    </div>
+                    
+                    <!-- Item Gallery 2 -->
+                    <div class="gallery-item" onclick="openModal('modal2')">
+                        <img src="Screenshot 2025-08-21 091737.png" alt="Swimming Activity">
+                        <div class="gallery-caption">Berenang di Kolam Renang</div>
+                    </div>
+                    
+                    <!-- Item Gallery 3 -->
+                    <div class="gallery-item" onclick="openModal('modal3')">
+                        <img src="Screenshot 2025-08-21 093114.png" alt="School Activity">
+                        <div class="gallery-caption">Kegiatan Belajar di Sekolah</div>
+                    </div>
+                    
+                    <!-- Item Gallery 4 -->
+                    <div class="gallery-item" onclick="openModal('modal4')">
+                        <img src="Screenshot 2025-08-21 093407.png" alt="With Friends">
+                        <div class="gallery-caption">Bersama Teman-teman</div>
+                    </div>
+                    
+                    <!-- Item Gallery 5 -->
+                    <div class="gallery-item" onclick="openModal('modal5')">
+                        <img src="Screenshot 2025-07-08 153359.png" alt="Nature">
+                        <div class="gallery-caption">Exploring Alam</div>
+                    </div>
+                    
+                    <!-- Item Gallery 6 -->
+                    <div class="gallery-item" onclick="openModal('modal6')">
+                        <img src="Screenshot 2024-11-03 181147.png" alt="Workout">
+                        <div class="gallery-caption">The Forest</div>
+                    </div>
+                    
+                    <!-- Item Gallery 7 -->
+                    <div class="gallery-item" onclick="openModal('modal7')">
+                        <img src="Screenshot 2025-03-03 215446.png" alt="Travel">
+                        <div class="gallery-caption">Minecraft</div>
+                    </div>
+                    
+                    <!-- Item Gallery 8 -->
+                    <div class="gallery-item" onclick="openModal('modal8')">
+                        <img src="Screenshot 2025-08-21 121311.png" alt="Music">
+                        <div class="gallery-caption">Mendengarkan Musik Favorit</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="showSection('home')" style="padding: 10px 20px; background: #2c3e50; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                        Return to Home
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal untuk gambar yang diperbesar -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Wish You Have A Greatful Day, Aamiin</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Sembunyikan semua bagian
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Tampilkan bagian yang dipilih
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Scroll ke atas
+            window.scrollTo(0, 0);
+        }
+        
+        // Fungsi untuk modal gallery
+        function openModal(modalId) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById("modalImage");
+            const captionText = document.getElementById("modalCaption");
+            
+            // Ambil sumber gambar dari item gallery yang diklik
+            const clickedImage = event.target.closest('.gallery-item').querySelector('img').src;
+            const clickedCaption = event.target.closest('.gallery-item').querySelector('.gallery-caption').textContent;
+            
+            modal.style.display = "block";
+            modalImg.src = clickedImage;
+            captionText.innerHTML = clickedCaption;
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+        
+        // Tutup modal ketika mengklik di luar gambar
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
